@@ -3,15 +3,22 @@
 properties([disableConcurrentBuilds()])
 
 pipeline {
-    agent any
+    agent {
+        label 'master'
+    }
     options {
         buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
         timestamps()
     }
     stages {
-        stage("Preparations") {
+        stage('First step') {
             steps {
                 sh 'ssh root@testhost \'hostname\''
+            }
+        }
+        stage('Second step') {
+            steps {
+                sh 'ssh root@testhost \'uptime\''
             }
         }
     }

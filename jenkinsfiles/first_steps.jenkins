@@ -4,14 +4,14 @@ properties([disableConcurrentBuilds()])
 
 pipeline {
     agent {
-        label 'main'
+        label 'master'
     }
     options {
         buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
         timestamps()
     }
     stages {
-        stage('Preparations') {
+        stage("Preparations") {
             steps {
                 sh 'ssh root@testhost@bsh.local \'hostname\''
             }
